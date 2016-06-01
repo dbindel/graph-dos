@@ -43,5 +43,5 @@ function [Hs, ab] = rescale_matrix(H, n, range)
 
   % Parameters for linear mapping
   ab = [(range(2)-range(1))/(2-fudge); (range(2)+range(1))/2];
-
+  Hs = @(x) (Hfun(x)-ab(2)*x)/ab(1);
 end

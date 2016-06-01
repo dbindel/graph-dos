@@ -14,13 +14,20 @@
 % Output:
 %   Nfun: applies normalized adjacency matrix or stochastic matrix
 %
-function [Nfun] = mfunc_adjacency(Wfun, n, mode)
+function [Nfun] = mfunc_normalize(W, n, mode)
 
-  if ~isa(Wfun, 'function_handle')
-    n = size(Wfun,1);
+  if isa(W, 'function_handle')
+    if nargin < 3, mode = 's'; end
+    Wfun = W;
+  else
+    if nargin < 2
+      mode = 's';
+    elseif nargin < 3
+      if ischar(n), mode = n; else mode = 's'; end
+    end
+    n = size(W,1);
     Wfun = @(X) W*X;
   end
-  if nargin < 3, mode = 's'; end
 
   e = ones(n,1);
   d = Wfun(e);

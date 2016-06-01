@@ -9,10 +9,12 @@
 % Output:
 %   Bfun: multiplies by a graph modularity matrix
 %
-function [Bfun] = mfunc_modularity(Wfun, n)
+function [Bfun] = mfunc_modularity(W, n)
 
-  if ~isa(Wfun, 'function_handle')
-    n = size(Wfun,1);
+  if isa(W, 'function_handle')
+    Wfun = W;
+  else
+    n = size(W,1);
     Wfun = @(X) W*X;
   end
 

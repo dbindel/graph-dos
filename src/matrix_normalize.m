@@ -12,7 +12,7 @@
 % Output:
 %   N: a normalized adjacency matrix or stochastic matrix (in sparse form)
 %
-function [N] = matrix_adjacency(W, mode)
+function [N] = matrix_normalize(W, mode)
 
   dc = full(sum(W,1)).';
   dr = full(sum(W,2));

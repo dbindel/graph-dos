@@ -9,15 +9,17 @@
 % Output:
 %   Lfun: multiplies by a graph Laplacian
 %
-function [Lfun] = mfunc_laplacian(Wfun, n)
+function [Lfun] = mfunc_laplacian(W, n)
 
-  if ~isa(Wfun, 'function_handle')
-    n = size(Wfun,1);
+  if isa(W, 'function_handle')
+    Wfun = W;
+  else
+    n = size(W,1);
     Wfun = @(X) W*X;
   end
 
   e = ones(n,1);
   D = spdiags(Wfun(e), 0, n, n);
-  Lfun = @(X) (D*X - Wfun(x));
+  Lfun = @(X) (D*X - Wfun(X));
 
 end
