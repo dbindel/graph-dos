@@ -69,6 +69,6 @@ function [c,cs] = moments_cheb_ldos(A, n, nZ, N, kind)
     c(k,:) = mean(X,2).';
     if nargout > 1, cs(k,:) = std(X,0,2).'; end
   end
-  cs = cs/sqrt(nZ);
+  if nargout > 1, cs = cs/sqrt(nZ); end
 
 end
