@@ -12,3 +12,11 @@
 %   mfunc_laplacian  - Form a function to apply a weighted Laplacian
 %   mfunc_modularity - Form a function to apply the modularity matrix
 %   mfunc_normalize  - Form a normalized version of a matrix apply function
+%
+% Estimate moments of DoS
+%   moments_cheb      - Compute Chebyshev moments for given start vector(s)
+%   moments_cheb_dos  - Estimate Chebyshev moments of DoS
+%   moments_cheb_ldos - Estimate Chebyshev moments of local DoS
+%
+% Filtering moments
+%   filter_jackson - Apply Jackson filter to a sequence of Chebyshev moments
