@@ -52,31 +52,20 @@ function [A,data] = load_koblenz(path)
     counts = sscanf(remain, '%d');
     fprintf('Counts: %d %d %d\n', counts);
     tline = fgetl(fp);
+    hlines = 2;
   else
-    counts = [0];
-    tline = fgetl(fp);
+    counts = [];
+    hlines = 1;
   end
 
-  % Process data lines
-  k = 0;
-  if any(strcmp(kb_wts, no_weights))
-    data = zeros(counts(1), 2);
-    while ischar(tline)
-      k = k+1;
-      data(k,:) = sscanf(tline, '%d%d');
-      tline = fgetl(fp);
-    end
-    data = [data, ones(k,1)];
-  else
-    data = zeros(counts(1), 3);
-    while ischar(tline)
-      k = k+1;
-      data(k,:) = sscanf(tline, '%d%d%f')
-      tline = fgetl(fp);
-    end
-  end
-
+  % Wrap up header phase
   fclose(fp);
+
+  % Read the remainder via dlmread (faster than looping)
+  data = dlmread(path, '', hlines, 0);
+  if any(strcmp(kb_wts, no_weights))
+    data = [data, ones(size(data,1),1)];
+  end
 
   % Form the weighted graph
   if length(counts) < 3
@@ -87,7 +76,7 @@ function [A,data] = load_koblenz(path)
 
   % Symmetrize if needed
   if strcmp(kb_type, 'sym')
-    d = spdiags(A,0)
+    d = spdiags(A,0);
     A = spdiags(d,0,A+A');
   end
 
