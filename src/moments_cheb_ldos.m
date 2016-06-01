@@ -47,27 +47,28 @@ function [c,cs] = moments_cheb_ldos(A, n, nZ, N, kind)
   % Run three-term recurrence to estimate moments.
   % Uses the stochastic diagonal estimator of Bekas and Saad
   %  http://www-users.cs.umn.edu/~saad/PDF/umsi-2005-082.pdf
-  
+
   c = zeros(N,n);
   if nargout > 1, cs = zeros(N,n); end
 
   TZp = Z;
   X = Z.*TZp;
-  c(:,1) = mean(X,2).';
-  if nargout > 1, cs(:,1) = std(X,0,2).'; end
+  c(1,:) = mean(X,2).';
+  if nargout > 1, cs(1,:) = std(X,0,2).'; end
 
   TZk = kind*Afun(Z);
   X = Z.*TZk;
-  c(:,2) = mean(X,2).;
-  if nargout > 1, cs(:,2) = std(X,0,2).'; end
+  c(2,:) = mean(X,2).';
+  if nargout > 1, cs(2,:) = std(X,0,2).'; end
 
   for k = 3:N
     TZ = 2*Afun(TZk) - TZp;
     TZp = TZk;
     TZk = TZ;
     X = Z.*TZk;
-    c(:,k) = mean(X,2).';
-    if nargout > 1, cs(:,k) = std(X,0,2).'; end
+    c(k,:) = mean(X,2).';
+    if nargout > 1, cs(k,:) = std(X,0,2).'; end
   end
+  cs = cs/sqrt(nZ);
 
 end

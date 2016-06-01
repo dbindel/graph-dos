@@ -45,10 +45,10 @@ function [c,cs] = moments_cheb_dos(A, n, nZ, N, kind)
   end
 
   % Estimate moments for each probe vector
-  cZ = moments_cheb(A, Z, N, kind);
+  cZ = moments_cheb(Afun, Z, N, kind);
   c  = mean(cZ,2);
   if nargout > 1
     cs = std(cZ,0,2)/sqrt(nZ);
   end
-  
+
 end

@@ -9,7 +9,7 @@ assert(nnz(A) == 2*m,  'Wrong number of edges');
 assert(size(A,1) == n, 'Wrong number of nodes');
 
 % Compute full eigendecomposition for later sanity checks
-[V,D] = eig(full(A));
+[Q,D] = eig(full(A));
 lambda = diag(D);
 
 % Check symmetric normalization
@@ -73,3 +73,47 @@ relerr = norm(y1-y2)/norm(y2);
 assert(relerr < 1e-12, 'Inconsistent scaling behavior');
 lambdas = (lambda-ab(2))/ab(1);
 assert(all(abs(lambdas) < 1), 'Out-of-range scaled eigenvalues');
+
+% Compare cheb moments for a given v
+w = (Q'*x).^2;
+c = moments_cheb(As, x, 10);
+cref = zeros(10,1);
+for k = 0:9
+  cref(k+1) = w'*cos(k*acos(lambdas));
+end
+assert(norm(cref-c) < 1e-12, 'Inconsistent Cheb moments for fixed v');
+
+% Compare cheb moments for a given v (second kind)
+w = (Q'*x).^2;
+c = moments_cheb(As, x, 10, 2);
+cref = zeros(10,1);
+for k = 0:9
+ cref(k+1) = w'*(sin((k+1)*acos(lambdas))./sin(acos(lambdas)));
+end
+assert(norm(cref-c) < 1e-12, 'Inconsistent Cheb moments for fixed v');
+
+% Compare cheb moments for DoS
+[c,cs] = moments_cheb_dos(As, n, 100);
+for k = 0:9
+  cref(k+1) = sum(cos(k*acos(lambdas)));
+end
+relerr = abs(c-cref)./abs(c);
+relerrb = cs./abs(c);
+fprintf('--- Sanity check DoS moments ---\n');
+fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
+        [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
+
+% Compare cheb moments for LDoS
+jnode = 12;
+w = Q(jnode,:)'.^2;
+[c,cs] = moments_cheb_ldos(As, n, 100);
+c = c(:,jnode);
+cs = cs(:,jnode);
+for k = 0:9
+  cref(k+1) = w'*cos(k*acos(lambdas));
+end
+relerr = abs(c-cref)./abs(c);
+relerrb = cs./abs(c);
+fprintf('--- Sanity check DoS moments ---\n');
+fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
+        [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
