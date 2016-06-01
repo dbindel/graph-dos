@@ -12,7 +12,7 @@ is described in section 9 of the [KONECT handbook][konect-hb].
 The bulk of the data is in a file `out.NAME` where `NAME` is the
 name of the network; after a couple header lines, this basically
 looks like edge information in tuple form.  We provide a reader
-for the format under the utilities subdirectory (TODO).
+for the format (`load_koblenz`).
 
 ## [UF sparse collection][ufsparse]
 
@@ -30,8 +30,7 @@ available via UFGet, we recommend it.
 
 The Stanford Large Network Dataset Collection by Jure Leskovec includes
 several large data sets.  Unfortunately, they are not in a common format.
-Many of these are available
-from [the UF sparse collection][ufsnap].
+Many of these are available from [the UF sparse collection][ufsnap].
 
 [koblenz]: http://konect.uni-koblenz.de/
 [ufsparse]: https://www.cise.ufl.edu/research/sparse/matrices/
