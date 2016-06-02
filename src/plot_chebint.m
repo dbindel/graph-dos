@@ -1,4 +1,4 @@
-% yy = plot_chebint(c,xx)
+% yy = plot_chebint(c,xx,ab)
 %
 % Given a (possibly filtered) set of first-kind Chebyshev moments,
 % compute the integral of the density

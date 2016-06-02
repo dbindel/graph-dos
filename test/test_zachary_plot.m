@@ -18,3 +18,13 @@ figure(2); clf; hold on;
 plot_cheb(filter_jackson(c),xx,ab,1);
 plot(lambdas,0*lambdas,'*');
 title('Eigenvalue PDF vs KPM estimate');
+
+figure(3); clf; hold on
+xx = ab(1)*linspace(-1+1e-8,1-1e-8,11)+ab(2);
+xm = (xx(1:end-1)+xx(2:end))/2;
+nlam  = hist(lambdas,xm);
+nkpm  = plot_chebhist(c,xx,ab);
+nkpmj = plot_chebhist(filter_jackson(c),xx,ab);
+bar(xm', [nlam; nkpm; nkpmj]');
+legend('True', 'KPM', 'KPMJ');
+title('Eigenvalue histogram vs KPM variants');
