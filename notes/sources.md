@@ -32,8 +32,36 @@ The Stanford Large Network Dataset Collection by Jure Leskovec includes
 several large data sets.  Unfortunately, they are not in a common format.
 Many of these are available from [the UF sparse collection][ufsnap].
 
+## [Networkrepository.com][networkrepo]
+
+Like Koblenz, the network data repository has an extensive (500+) set of
+contributed network data sets.  Unlike Koblenz, and like SNAP, the data sets do
+not appear to be in any single specific format.
+
+## Other resources
+
+There are a variety of other sites that provide data collections, usually
+including much more than network data.  In addition to a ton of one-off
+network data sets and small collections associated with a single paper,
+there are some portals associated with government data or with data that
+is (primarily) produced for citations:
+
+### Government data portals
+
+- <http://dataportals.org/>
+- <https://www.data.gov/>
+- <https://data.gov.uk/>
+
+### Reproducible research and indexing for data citations
+
+- <http://www.re3data.org/>
+- <https://www.datacite.org/>
+- <https://figshare.com/>
+- <https://datahub.io/>
+
 [koblenz]: http://konect.uni-koblenz.de/
 [ufsparse]: https://www.cise.ufl.edu/research/sparse/matrices/
 [snap-data]: https://snap.stanford.edu/data/
 [konect-hb]: http://konect.uni-koblenz.de/downloads/konect-handbook.pdf
 [ufsnap]: https://www.cise.ufl.edu/research/sparse/matrices/SNAP/index.html
+[networkrepo]: http://networkrepository.com/
