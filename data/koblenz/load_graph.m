@@ -1,4 +1,4 @@
-% [A,kb] = load_koblenz(path)
+% [A,kb] = load_graph(path)
 %
 % Returns a (weighted) adjacency matrix from a TSV file
 % from the Koblenz network archive.
@@ -10,7 +10,7 @@
 %   A: Weighted adjacency matrix.
 %   kb: Structure of raw output data from loader
 %
-function [A,kb] = load_koblenz(path)
+function [A,kb] = load_graph(path)
 
   % Load raw data
   if isstruct(path)
