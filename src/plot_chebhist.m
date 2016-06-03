@@ -23,7 +23,7 @@ function yy = plot_chebhist(varargin)
   % Plot
   yy = plot_chebint(c,xx0,ab);
   yy = yy(2:end)-yy(1:end-1);
-  xm = (xx(2:end)+xx(1:end-1))/2;
+  xm = (xx0(2:end)+xx0(1:end-1))/2;
   if nargout < 1
     bar(xm, yy);
   end
