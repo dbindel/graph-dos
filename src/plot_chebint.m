@@ -6,6 +6,14 @@
 %   int_{0}^s (2/pi)*sqrt(1-x^2)) * ( c(0)/2 + sum_{n=1}^{N-1} c_n T_n(x) )
 %
 % If no output argument is assigned, make a plot.
+%
+% Inputs:
+%   c:  Chebyshev moments (on [-1,1])
+%   xx: evaluation points (defaults to mesh of 11 pts)
+%   ab: mapping parameters (defaults to identity)
+%
+% Output:
+%   yy: Estimated cumulative density up to each xx point
 
 function yy = plot_chebint(c,xx0,ab)
 

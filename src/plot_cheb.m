@@ -1,11 +1,11 @@
-% yy = plot_cheb(c,xx,ab,kind)
+% yy = plot_cheb(c,xx,ab)
 %
 % Given a set of fist-kind Chebyshev moments, compute the associated
 % density.   If no output argument is assigned, make a plot.
 %
 % Inputs:
 %   c:  Chebyshev moments (on [-1,1])
-%   xx: evaluation points on original interval
+%   xx: evaluation points (defaults to mesh of 1001 pts)
 %   ab: mapping parameters (defaults to identity)
 %
 % Output:
