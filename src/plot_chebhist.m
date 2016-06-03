@@ -15,9 +15,13 @@
 % Output:
 %   yy: Estimated counts on buckets between xx points
 
-function yy = plot_chebhist(c,xx,varargin)
+function yy = plot_chebhist(varargin)
 
-  yy = plot_chebint(c,xx,varargin{:});
+  % Parse arguments
+  [c,xx,xx0,ab] = plot_cheb_argparse(21, varargin{:});
+
+  % Plot
+  yy = plot_chebint(c,xx0,ab);
   yy = yy(2:end)-yy(1:end-1);
   xm = (xx(2:end)+xx(1:end-1))/2;
   if nargout < 1

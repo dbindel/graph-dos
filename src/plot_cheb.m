@@ -11,24 +11,13 @@
 % Output:
 %   yy: Density evaluated at xx mesh
 
-function yy = plot_cheb(c,xx0,ab,kind)
+function yy = plot_cheb(varargin)
 
-  % In practice, allow kind = 2 -- though things like the Jackson
-  % filter are set up only for first-kind moments, so we will not
-  % advertise this capability in the public comments.
-  %
-  if nargin < 4, kind = 1;                            end
-  if nargin < 2, xx0 = linspace(-1-1e-8,1+1e-8,1001); end
-
-  % Map points to [-1,1]
-  if nargin < 3
-    ab = [1, 0];
-    xx = xx0;
-  else
-    xx = (xx0-ab(2))/ab(1);
-  end
+  % Parse arguments
+  [c,xx,xx0,ab] = plot_cheb_argparse(1001, varargin{:});
 
   % Run the recurrence
+  kind = 1;
   N = length(c);
   P0 = xx*0+1;
   P1 = kind*xx;

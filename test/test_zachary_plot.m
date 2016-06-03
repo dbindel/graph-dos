@@ -6,16 +6,15 @@ lambdas = eig(L);
 
 [Ls,ab] = rescale_matrix(L);
 c = moments_cheb_dos(Ls,n,100,100);
-
-xx = ab(1)*linspace(-1+1e-8,1-1e-8,1001)+ab(2);
+cf = filter_jackson(c);
 
 figure(1); clf; hold on;
-plot_chebint(filter_jackson(c),xx,ab);
+plot_chebint(cf,ab);
 plot(lambdas,0:length(lambdas)-1, '*');
 title('Eigenvalue CDF vs KPM estimate');
 
 figure(2); clf; hold on;
-plot_cheb(filter_jackson(c),xx,ab,1);
+plot_cheb(cf,ab);
 plot(lambdas,0*lambdas,'*');
 title('Eigenvalue PDF vs KPM estimate');
 
@@ -24,7 +23,7 @@ xx = ab(1)*linspace(-1+1e-8,1-1e-8,11)+ab(2);
 xm = (xx(1:end-1)+xx(2:end))/2;
 nlam  = hist(lambdas,xm);
 nkpm  = plot_chebhist(c,xx,ab);
-nkpmj = plot_chebhist(filter_jackson(c),xx,ab);
+nkpmj = plot_chebhist(cf,xx,ab);
 bar(xm', [nlam; nkpm; nkpmj]');
 legend('True', 'KPM', 'KPMJ');
 title('Eigenvalue histogram vs KPM variants');

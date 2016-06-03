@@ -15,15 +15,10 @@
 % Output:
 %   yy: Estimated cumulative density up to each xx point
 
-function yy = plot_chebint(c,xx0,ab)
+function yy = plot_chebint(varargin)
 
-  % Map points to [-1,1]
-  if nargin < 3
-    ab = [1, 0];
-    xx = xx0;
-  else
-    xx = (xx0-ab(2))/ab(1);
-  end
+  % Parse arguments
+  [c,xx,xx0,ab] = plot_cheb_argparse(1001, varargin{:});
 
   N = length(c);
   txx = acos(xx);
