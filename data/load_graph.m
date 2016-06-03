@@ -8,9 +8,15 @@
 %
 function varargout = load_graph(collection, varargin)
 
+  % NB: This does something very strange in Octave --
+  %     I get complaints that collection is not defined
+  %     even after printing out the value of collection!
+
   saved_dir = pwd;
   [pathstr,name,ext] = fileparts(mfilename('fullpath'));
-  if ~exist(fullfile(pathstr, collection, 'load_graph.m'), 'file')
+  cpath = fullfile(pathstr, collection);
+  fname = fullfile(cpath, 'load_graph.m');
+  if ~exist(fname, 'file')
     error(sprintf('Could not find loader for %s', collection));
   end
   try

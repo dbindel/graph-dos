@@ -1,0 +1,5 @@
+This file contains a list of people who have contributed to
+the software in this repository.
+
+Original system design and implementation:
+  David Bindel <bindel@cs.cornell.edu>
