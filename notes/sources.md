@@ -26,17 +26,24 @@ The UF sparse collection contains many of the
 [SNAP collection matrices][ufsnap]; when these matrices are
 available via UFGet, we recommend it.
 
+## [Networkrepository.com][networkrepo]
+
+Like Koblenz, the network data repository has an extensive (500+) set of
+contributed network data sets.  The data sets are not in any single
+specific format.
+
 ## [SNAP repository][snap-data]
 
 The Stanford Large Network Dataset Collection by Jure Leskovec includes
 several large data sets.  Unfortunately, they are not in a common format.
 Many of these are available from [the UF sparse collection][ufsnap].
 
-## [Networkrepository.com][networkrepo]
+## [Gephi data][gephi-data]
 
-Like Koblenz, the network data repository has an extensive (500+) set of
-contributed network data sets.  Unlike Koblenz, and like SNAP, the data sets do
-not appear to be in any single specific format.
+The [Gephi](https://gephi.org/) graph visualization project includes
+pointers to several data sources.  They are in a variety of formats,
+but the formats are standard rather than one-off (and therefore there's
+a pretty good chance that a standard converter already exists).
 
 ## Other resources
 
@@ -65,3 +72,5 @@ is (primarily) produced for citations:
 [konect-hb]: http://konect.uni-koblenz.de/downloads/konect-handbook.pdf
 [ufsnap]: https://www.cise.ufl.edu/research/sparse/matrices/SNAP/index.html
 [networkrepo]: http://networkrepository.com/
+[uci-data]: http://networkdata.ics.uci.edu/
+[gephi-data]: https://github.com/gephi/gephi/wiki/Datasets
