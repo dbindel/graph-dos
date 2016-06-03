@@ -1,5 +1,5 @@
 % Test plotting on Zachary example
-A = load_zachary();
+A = load_graph('zachary');
 n = length(A);
 L = matrix_laplacian(A);
 lambdas = eig(L);

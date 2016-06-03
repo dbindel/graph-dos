@@ -2,7 +2,7 @@
 clear
 
 % Load adjacency matrix and check basic
-A = load_zachary();
+A = load_graph('zachary');
 m = 78;  % Number of edges
 n = 34;  % Number of nodes
 assert(nnz(A) == 2*m,  'Wrong number of edges');
