@@ -27,3 +27,5 @@ function yy = plot_chebhist(varargin)
   if nargout < 1
     bar(xm, yy);
   end
+
+end

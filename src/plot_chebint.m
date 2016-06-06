@@ -32,3 +32,5 @@ function yy = plot_chebint(varargin)
   if nargout < 1
     plot(xx0, yy);
   end
+
+end

@@ -45,3 +45,4 @@ function [c,xx,xx0,ab] = plot_cheb_argparse(npts,c,xx0,ab)
     xx = (xx0-ab(2))/ab(1);
 
   end
+end

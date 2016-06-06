@@ -40,3 +40,5 @@ function yy = plot_cheb(varargin)
   if nargout < 1
     plot(xx0, yy);
   end
+
+end
