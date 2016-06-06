@@ -27,3 +27,5 @@ function varargout = load_graph(collection, varargin)
     rethrow(me);
   end
   cd(saved_dir);
+
+end
