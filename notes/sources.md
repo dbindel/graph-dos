@@ -45,6 +45,13 @@ pointers to several data sources.  They are in a variety of formats,
 but the formats are standard rather than one-off (and therefore there's
 a pretty good chance that a standard converter already exists).
 
+## [RODGER][gleich-rodger]
+
+David Gleich has a Repository of Difficult Graph Experiments and Results
+(RODGER) with normalized Laplacian eigenvalues associated with several
+graphs.  This is a good source of "ground truth" results for comparison
+with the stochastic DoS estimators.
+
 ## Other resources
 
 There are a variety of other sites that provide data collections, usually
@@ -74,3 +81,4 @@ is (primarily) produced for citations:
 [networkrepo]: http://networkrepository.com/
 [uci-data]: http://networkdata.ics.uci.edu/
 [gephi-data]: https://github.com/gephi/gephi/wiki/Datasets
+[gleich-rodger]: https://www.cs.purdue.edu/homes/dgleich/rodger/
