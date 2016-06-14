@@ -14,7 +14,8 @@
 %   mfunc_normalize  - Form a normalized version of a matrix apply function
 %
 % Estimate moments of DoS
-%   rescale_matrix    - Apply linear scaling to put spectrum in [-1,1]
+%   rescale_matrix    - Apply linear scaling to put spectrum in [-1,1] (matrix)
+%   rescale_mfunc     - Like rescale_matrix, but returns a function
 %   moments_cheb      - Compute Chebyshev moments for given start vector(s)
 %   moments_cheb_dos  - Estimate Chebyshev moments of DoS
 %   moments_cheb_ldos - Estimate Chebyshev moments of local DoS
