@@ -1,5 +1,5 @@
-% [Hs, ab] = rescale_matrix(H, n, range)
-% [Hs, ab] = rescale_matrix(H, n, fudge)
+% [H, ab] = rescale_matrix(H, range)
+% [H, ab] = rescale_matrix(H, fudge)
 %
 % Rescale the symmetric matrix H so the eigenvalue range maps to
 % between -1 and 1.  If a range is not given, the function uses Lanczos
@@ -7,41 +7,44 @@
 % factor.
 %
 % Input:
-%    H: The original matrix (or function)
-%    n: The dimension of the space (iff H is a function)
+%    H: The original matrix
 %    range: A two-element vector representing an interval where eigs live
 %    fudge: A scalar "fudge factor" to guard against range underestimates
 %           (default is 0.01)
 %
 % Output:
-%    Hs: A function representing the scaled matrix
+%    H: The scaled matrix
 %    ab: Transformation parameters: Hs = (H-b)/a
 %
-function [Hs, ab] = rescale_matrix(H, n, range)
+function [H, ab] = rescale_matrix(H, range)
 
-  % Deal with matrix vs function
-  if isa(H, 'function_handle')
-    Hfun = H;
-    if nargin < 2, error('Missing size argument'); end
-    if nargin < 3, range = 0.01; end
-  else
-    Hfun = @(x) H*x;
-    n = size(H,1);
-    if nargin < 2, range = 0.01; else range = n; end
-  end
-
-  % Run Lanczos to estimate range (if needed)
-  if length(range) == 1
+  % Get the fudge factor and range
+  if nargin < 2
+    fudge = 0.01;
+    range = [];
+  elseif length(range) == 1
     fudge = range;
-    opts = [];
-    opts.isreal = 1;
-    opts.issym = 1;
-    range = sort(eigs(Hfun, n, 2, 'be', opts));
+    range = [];
   else
     fudge = 0;
   end
 
+  % Compute range if not given
+  if isempty(range)
+    opts = [];
+    opts.isreal = 1;
+    opts.issym = 1;
+    range = sort(eigs(H, 2, 'be', opts));
+  end
+
+  % Form dense or sparse identity, as appropriate
+  if issparse(H)
+    I = speye(length(H));
+  else
+    I = eye(length(H));
+  end
+
   % Parameters for linear mapping
   ab = [(range(2)-range(1))/(2-fudge); (range(2)+range(1))/2];
-  Hs = @(x) (Hfun(x)-ab(2)*x)/ab(1);
+  H = (H-ab(2)*I)/ab(1);
 end
