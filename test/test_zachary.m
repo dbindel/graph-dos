@@ -64,10 +64,19 @@ Bfun2 = mfunc_modularity(@(x) A*x, n);
 assert(norm(Bfun(x)-Bx) < 1e-12*norm(Bx), 'Incorrect Bfun');
 assert(norm(Bfun2(x)-Bx) < 1e-12*norm(Bx), 'Incorrect Bfun2');
 
-% Sanity check matrix scaling
-[As,ab] = rescale_matrix(A);
+% Sanity check mfunc scaling
+[As,ab] = rescale_mfunc(A);
 x = randn(n,1);
 y1 = As(x);
+y2 = (A*x-ab(2)*x)/ab(1);
+relerr = norm(y1-y2)/norm(y2);
+assert(relerr < 1e-12, 'Inconsistent scaling behavior');
+lambdas = (lambda-ab(2))/ab(1);
+assert(all(abs(lambdas) < 1), 'Out-of-range scaled eigenvalues');
+
+% Sanity check matrix scaling
+[As,ab] = rescale_matrix(A);
+y1 = As*x;
 y2 = (A*x-ab(2)*x)/ab(1);
 relerr = norm(y1-y2)/norm(y2);
 assert(relerr < 1e-12, 'Inconsistent scaling behavior');
@@ -93,7 +102,7 @@ end
 assert(norm(cref-c) < 1e-12, 'Inconsistent Cheb moments for fixed v');
 
 % Compare cheb moments for DoS
-[c,cs] = moments_cheb_dos(As, n, 100);
+[c,cs] = moments_cheb_dos(As, n, 10);
 for k = 0:9
   cref(k+1) = sum(cos(k*acos(lambdas)));
 end
@@ -106,7 +115,7 @@ fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
 % Compare cheb moments for LDoS
 jnode = 12;
 w = Q(jnode,:)'.^2;
-[c,cs] = moments_cheb_ldos(As, n, 100);
+[c,cs] = moments_cheb_ldos(As, n, 10);
 c = c(:,jnode);
 cs = cs(:,jnode);
 for k = 0:9
