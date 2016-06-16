@@ -1,6 +1,6 @@
 % yy = plot_cheb(c,xx,ab)
 %
-% Given a set of fist-kind Chebyshev moments, compute the associated
+% Given a set of first-kind Chebyshev moments, compute the associated
 % density.   If no output argument is assigned, make a plot.
 %
 % Inputs:
