@@ -8,13 +8,22 @@ c(1) = c(1)/2;
 pN = mfunc_cheb_poly(c,N);
 
 % Pull out representative vectors (should revisit)
-[X,~] = qr(randn(length(N), 100),0);
-Y = pN(X);
-[U,S,V] = svd(Y);
-score = sum((U(:,1:2)*S(1:2,1:2)).^2, 2);
+nprobe = 200;
+thresh = 1e-3;
+[V,D] = eig_rand1(randn(length(N),nprobe), pN, thresh);
+[lambda,I] = sort(diag(D), 'descend');
+V = V(:,I);
+
+% Warn if it looks like we're missing something
+if length(D) == nprobe
+  warning('Did not converge to desired threshold\n');
+end
+
+% Sort out
+score = sum(V(:,1:2).^2, 2);
 
 % Plot top group
 [sscore,I] = sort(score, 'descend');
-I = I(1:200);
+I = I(1:100);
 As = A(I,I);
 gplot_shatter(As,4);
