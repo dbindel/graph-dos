@@ -4,5 +4,5 @@
 % centered at x.
 %
 function [c] = moments_delta(x,N)
-  c = cos( (0:N-1).*acos(x) );
+  c = cos( (0:N-1).*acos(x) )';
 end
