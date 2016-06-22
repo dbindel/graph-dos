@@ -50,4 +50,8 @@ function [V,D] = eig_rand1(Z, AZ, thresh)
 
   % Reconstruct the eigenpairs
   [V,D] = eig(B);
-  V = Q*V;
+  [~,I] = sort(abs(diag(D)), 'descend');
+  D = D(I,I);
+  V = Q*V(:,I);
+
+end
