@@ -6,7 +6,7 @@ L = matrix_laplacian(A);
 
 %eigenvalue soecific
 [Ls,ab] = rescale_matrix(L);
-c = filter_test(100,.5);
+c = moments_delta(0.5,100);
 cf = filter_jackson(c);
 Y = polyomial_filter(cf,Ls);
 [nComponents,sizes,members] = networkComponents(A);

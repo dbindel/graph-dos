@@ -3,3 +3,6 @@ the software in this repository.
 
 Original system design and implementation:
   David Bindel <bindel@cs.cornell.edu>
+
+Additional functionality:
+  Moteleolu Onabajo <mmo56@cornell.edu> - filtered plotting
