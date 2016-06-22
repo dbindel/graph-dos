@@ -1,21 +1,20 @@
-%A = load_graph('zachary');
-A = load_graph('ufsparse', 'Gleich/minnesota');
-n = length(A);
-L = matrix_laplacian(A);
-%lambdas = eig(L);
+% Load one of the Gleich examples
+A = load_graph('gleich', 'musm-cc');
 
-%eigenvalue soecific
-[Ls,ab] = rescale_matrix(L);
-c = moments_delta(0.5,100);
-cf = filter_jackson(c);
-Y = polyomial_filter(cf,Ls);
-[nComponents,sizes,members] = networkComponents(A);
-%plot_polynomial_filter(Y,members)
+% Apply a filter
+N = matrix_normalize(A);
+c = filter_jackson(moments_delta(0.5, 500));
+c(1) = c(1)/2;
+pN = mfunc_cheb_poly(c,N);
 
-%{
-%Normal
-c1 = moments_cheb_dos(Ls,n,100,100);
-cf1= filter_jackson(c1);
-Y1= polyomial_filter(cf1,Ls);
-plot_polynomial_filter(Y1,members)
-%}
+% Pull out representative vectors (should revisit)
+[X,~] = qr(randn(length(N), 100),0);
+Y = pN(X);
+[U,S,V] = svd(Y);
+score = sum((U(:,1:2)*S(1:2,1:2)).^2, 2);
+
+% Plot top group
+[sscore,I] = sort(score, 'descend');
+I = I(1:200);
+As = A(I,I);
+gplot_shatter(As,4);

@@ -1,6 +1,6 @@
 % [c] = moments_delta(x,N)
 %
-% Compute Chebyshev moments 0 through N-1 of a delta function
+% Compute Chebyshev moments 0 through N-1 of a delta distribution
 % centered at x.
 %
 function [c] = moments_delta(x,N)
