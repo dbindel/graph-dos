@@ -21,12 +21,10 @@ function [xy] = gplot_shatter(A, min_size, xy)
   nc_big = sum(sizes >= min_size);
   nrow = ceil(sqrt(nc_big));
 
-  jj = 1;
   for j = 1:nc
     Ij = members{j};
-    col = mod(jj-1,nrow);
-    row = floor((jj-1)/nrow);
-    jj = jj+1;
+    col = mod(j-1,nrow);
+    row = floor((j-1)/nrow);
 
     if sizes(j) >= min_size
 
@@ -53,8 +51,21 @@ function [xy] = gplot_shatter(A, min_size, xy)
 
   % Plot if no output
   if nargout < 1
+    fprintf('Plot size:');
     fprintf(' %d', sizes(sizes >= min_size));
     fprintf('\nToo small: %d\n', nc-nc_big);
     gplot(A, xy, '-*');
+
+    % Add size labels
+    hstat = ishold;
+    hold on
+    for j = 1:nc
+      col = mod(j-1,nrow);
+      row = floor((j-1)/nrow);
+      if sizes(j) >= min_size
+        text(col+0.5, row+0.1, sprintf('%d', sizes(j)));
+      end
+    end
+    if ~hstat, hold off; end
   end
 end
