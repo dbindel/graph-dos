@@ -3,7 +3,7 @@ A = load_graph('gleich', 'pgp-cc');
 
 % Apply a filter
 N = matrix_normalize(A);
-c = filter_jackson(moments_delta(0.5, 500));
+c = filter_jackson(moments_delta(-0.5, 500));
 c(1) = c(1)/2;
 pN = mfunc_cheb_poly(c,N);
 
@@ -18,7 +18,7 @@ AZ = pN(Z);
 [lambda,I] = sort(diag(D), 'descend');
 V = V(:,I);
 if length(D) == nprobe
-  warning('Did not converge to desired threshold\n');
+    warning('Did not converge to desired threshold\n');
 end
 
 
@@ -26,14 +26,29 @@ end
 nmode = sum(lambda > 0.95*lambda(1));
 score = sum(V(:,1:nmode).^2, 2);
 [sscore,I] = sort(score, 'descend');
-I = I(1:400);
 
+% Extract top  + one-hop neighborhood
+Nhi = 40;
+I = I(1:Nhi);
+for hop=1:2
+    z = sum(A(:,I),2);
+    z(I) = 1;
+    I = find(z > 0);
+end
+
+%I = I(1:800);
+sscore=sscore(I);
+As = A(I,I);
+EdgeL=adj2gephilab('test',As,sscore);
+
+%{
 % Plot top group
 figure;
 As = A(I,I);
 gplot_shatter(As,4);
+%}
 
-
+%{
 % Alternative: Heuristic sparsification
 marks = zeros(length(N),1);
 nmode = sum(lambda > 0.95*lambda(1));
@@ -43,3 +58,4 @@ VQ = V*Q';
 I = I(1:400);
 figure;
 gplot_shatter(A(I,I),4);
+%}
