@@ -38,8 +38,16 @@ end
 
 %I = I(1:800);
 sscore=sscore(I);
+
+%Get it to gephi
 As = A(I,I);
 EdgeL=adj2gephilab('test',As,sscore);
+EdgeL2=adj2gephilab2('test2',As,sscore,I);
+
+
+%Get it back from gephi
+Q=csvread('export_text.csv',1,0);
+Ns=full(N(Q,Q));
 
 %{
 % Plot top group
