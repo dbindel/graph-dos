@@ -21,13 +21,19 @@ if length(D) == nprobe
   warning('Did not converge to desired threshold\n');
 end
 
-
 % Sort out and select top group by leverage on the subspace
 nmode = sum(lambda > 0.95*lambda(1));
 score = sum(V(:,1:nmode).^2, 2);
 [sscore,I] = sort(score, 'descend');
 I = I(1:400);
 
+opt = [];
+opt.title = 'PGP trust network';
+opt.attr = {'score'};
+opt.score = score;
+write_gexf('pgp.gexf', A, opt);
+
+%{
 % Plot top group
 figure;
 As = A(I,I);
@@ -43,3 +49,4 @@ VQ = V*Q';
 I = I(1:400);
 figure;
 gplot_shatter(A(I,I),4);
+%}
