@@ -5,6 +5,9 @@
 %   load_koblenz     - Form weighted adjacency from a Koblenz TSV file
 %   load_koblenz_raw - Raw data from a Koblenz TSV file
 %
+% Saving data
+%   save_gexf        - Save graph in Gephi's GEXF format
+%
 % Forming associated matrices and matrix functions
 %   matrix_adjacency - Strip weights from a matrix and return just adjacency
 %   matrix_laplacian - Form (weighted) graph Laplacian from an adjacency matrix
