@@ -6,7 +6,7 @@
 %   load_koblenz_raw - Raw data from a Koblenz TSV file
 %
 % Saving data
-%   save_gexf        - Save graph in Gephi's GEXF format
+%   save_gexf        - Save graph+st in Gephi's GEXF format
 %
 % Forming associated matrices and matrix functions
 %   matrix_adjacency - Strip weights from a matrix and return just adjacency
@@ -17,11 +17,12 @@
 %   mfunc_normalize  - Form a normalized version of a matrix apply function
 %
 % Estimate moments of DoS
-%   rescale_matrix    - Apply linear scaling to put spectrum in [-1,1] (matrix)
-%   rescale_mfunc     - Like rescale_matrix, but returns a function
-%   moments_cheb      - Compute Chebyshev moments for given start vector(s)
-%   moments_cheb_dos  - Estimate Chebyshev moments of DoS
-%   moments_cheb_ldos - Estimate Chebyshev moments of local DoS
+%   rescale_matrix     - Apply linear scaling to put spectrum in [-1,1] (matrix)
+%   rescale_mfunc      - Like rescale_matrix, but returns a function
+%   moments_cheb       - Compute Chebyshev moments for given start vector(s)
+%   moments_cheb_dos   - Estimate Chebyshev moments of DoS
+%   moments_cheb_ldos  - Estimate Chebyshev moments of local DoS
+%   moments_cheb_ldosx - Compute exact Chebyshev moments of local DoS
 %
 % Filtering Chebyshev moments
 %   filter_jackson - Apply Jackson filter

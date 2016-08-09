@@ -115,14 +115,16 @@ fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
 % Compare cheb moments for LDoS
 jnode = 12;
 w = Q(jnode,:)'.^2;
-[c,cs] = moments_cheb_ldos(As, n, 10);
+[cx] = moments_cheb_ldosx(As, [jnode], 10);
+[c,cs] = moments_cheb_ldos(As, 10);
 c = c(:,jnode);
 cs = cs(:,jnode);
 for k = 0:9
   cref(k+1) = w'*cos(k*acos(lambdas));
 end
 relerr = abs(c-cref)./abs(c);
+relerrx = abs(cx-cref)./abs(cx);
 relerrb = cs./abs(c);
-fprintf('--- Sanity check DoS moments ---\n');
-fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
-        [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
+fprintf('--- Sanity check LDoS moments ---\n');
+fprintf('%d: Relerr %e : Stoch relerr %e (vs %e for 95 pct CI): %d\n', ...
+        [(0:9)', relerrx, relerr, relerrb, 2*relerrb < relerr]');
