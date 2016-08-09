@@ -2,9 +2,8 @@
 % [c, cs] = moments_cheb_ldosx(A, nodes, N, kind)
 %
 % Compute a column vector (or vectors) of Chebyshev moments of
-% the form c(k,j) = [T_k(A)]_jj for k = 0 to N-1.  This routine
+% the form c(k,j) = [T_k(A)]_jj for k in nodes.  This routine
 % does no scaling; the spectrum of A should already lie in [-1,1].
-% The diagonal entries are computed by a stochastic estimator
 %
 % Inputs:
 %    A: Matrix or function to apply matrix (to multiple RHS)
@@ -35,11 +34,9 @@ else
   n = size(A,1);
 end
 
-nodes
-
 % Set up random probe vectors (we allow them to be passed in, too)
 V = zeros(n, length(nodes));
 V(nodes,:) = eye(length(nodes));
-V
+
 % Estimate moments for each probe vector
 c = moments_cheb(Afun, V, N, kind);
