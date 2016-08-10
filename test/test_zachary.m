@@ -102,13 +102,20 @@ end
 assert(norm(cref-c) < 1e-12, 'Inconsistent Cheb moments for fixed v');
 
 % Compare cheb moments for DoS
-[c,cs] = moments_cheb_dos(As, n, 10);
+[c,cs] = moments_cheb_dos(As, 1000, 10);
 for k = 0:9
   cref(k+1) = sum(cos(k*acos(lambdas)));
 end
 relerr = abs(c-cref)./abs(c);
 relerrb = cs./abs(c);
-fprintf('--- Sanity check DoS moments ---\n');
+fprintf('--- Sanity check DoS moments (KPM) ---\n');
+fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
+        [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
+
+[c,cs] = moments_lan_dos(As, 1000, 10);
+relerr = abs(c-cref)./abs(c);
+relerrb = cs./abs(c);
+fprintf('--- Sanity check DoS moments (Lanczos) ---\n');
 fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
         [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
 
@@ -125,6 +132,9 @@ end
 relerr = abs(c-cref)./abs(c);
 relerrx = abs(cx-cref)./abs(cx);
 relerrb = cs./abs(c);
-fprintf('--- Sanity check LDoS moments ---\n');
-fprintf('%d: Relerr %e : Stoch relerr %e (vs %e for 95 pct CI): %d\n', ...
-        [(0:9)', relerrx, relerr, relerrb, 2*relerrb < relerr]');
+fprintf('--- Sanity check LDoS moments (KPM) ---\n');
+fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
+        [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
+fprintf('--- Sanity check LDoS moments (vs purportedly exact) ---\n');
+fprintf('%d: Relerr %e\n', ...
+        [(0:9)', relerrx]');
