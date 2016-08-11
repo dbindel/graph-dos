@@ -22,9 +22,10 @@
 %   moments_cheb       - Compute Chebyshev moments for given start vector(s)
 %   moments_cheb_dos   - Estimate Chebyshev moments of DoS
 %   moments_cheb_ldos  - Estimate Chebyshev moments of local DoS
-%   moments_cheb_ldosx - Compute exact Chebyshev moments of local DoS
-%   moments_lanczos    - Compute a quadrature rule via Lanczos
-%   moments_lan_dos    - Compute moments of DoS via randomized Lanczos
+%   moments_cheb_ldosx - Exact Chebyshev moments of local DoS
+%   moments_lanczos    - Quadrature rule via Lanczos
+%   moments_lan_dos    - Moments of DoS via randomized Lanczos
+%   moments_lan_ldos   - Moments of LDoS for select nodes via Lanczos
 %   moments_quad2cheb  - Convert weighted deltas to Chebyshev moments
 %
 % Filtering Chebyshev moments

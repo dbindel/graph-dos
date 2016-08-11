@@ -123,6 +123,7 @@ fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
 jnode = 12;
 w = Q(jnode,:)'.^2;
 [cx] = moments_cheb_ldosx(As, [jnode], 10);
+[clan] = moments_lan_ldos(As, [jnode], 10);
 [c,cs] = moments_cheb_ldos(As, 10);
 c = c(:,jnode);
 cs = cs(:,jnode);
@@ -130,11 +131,15 @@ for k = 0:9
   cref(k+1) = w'*cos(k*acos(lambdas));
 end
 relerr = abs(c-cref)./abs(c);
+relerrl = abs(clan-cref)./abs(clan);
 relerrx = abs(cx-cref)./abs(cx);
 relerrb = cs./abs(c);
 fprintf('--- Sanity check LDoS moments (KPM) ---\n');
 fprintf('%d: Relerr %e (vs %e for 95 pct CI): %d\n', ...
         [(0:9)', relerr, relerrb, 2*relerrb < relerr]');
+fprintf('--- Sanity check LDoS moments (Lanczos) ---\n');
+fprintf('%d: Relerr %e\n', ...
+        [(0:9)', relerrl]');
 fprintf('--- Sanity check LDoS moments (vs purportedly exact) ---\n');
 fprintf('%d: Relerr %e\n', ...
         [(0:9)', relerrx]');

@@ -1,5 +1,5 @@
-% [theta, wts] = lanczos(Afun, n, q1, kmax, btol)
-% [theta, wts] = lanczos(A, q1, kmax, btol)
+% [theta, wts] = moments_lanczos(Afun, n, q1, kmax, btol)
+% [theta, wts] = moments_lanczos(A, q1, kmax, btol)
 %
 % Run a basic Lanczos iteration until either beta_k < btol
 % or k == kmax.  Return weights wts and nodes theta for
