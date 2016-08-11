@@ -16,24 +16,12 @@
 % Output:
 %    c:  Chebyshev moments
 %
-function [c] = moments_lan_ldos(A, n, nodes, N, kmax, btol)
+function [c] = moments_lan_ldos(varargin)
 
-  if isa(A, 'function_handle')
-    % Fill in defaults
-    Afun = A;
-    if nargin < 6, btol  = 1e-6; end
-    if nargin < 5, kmax  = 100;  end
-    if nargin < 4, N     = 10;   end
-    if nargin < 3, nodes = [1];  end
-  else
-    % Fill in defaults and shift arguments down
-    Afun = @(X) A*X;
-    if nargin < 5, btol  = 1e-6; else btol  = kmax;  end
-    if nargin < 4, kmax  = 100;  else kmax  = N;     end
-    if nargin < 3, N     = 10;   else N     = nodes; end
-    if nargin < 2, nodes = [1];  else nodes = n;     end
-    n = size(A,1);
-  end
+  defaults = {'Afun', NaN, 'n', NaN, ...
+              'nodes', NaN, 'N', 10, 'kmax', 100, 'btol', 1e-6};
+  [Afun, n, nodes, N, kmax, btol] = mfuncify(defaults, varargin{:});
+  if N < 2, N = 2; end
 
   if length(nodes) < n
     V = zeros(n,length(nodes));

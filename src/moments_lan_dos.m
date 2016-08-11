@@ -18,24 +18,12 @@
 %    c:  Chebyshev moments
 %    cs: Standard deviations
 %
-function [c, cs] = moments_lan_dos(A, n, nZ, N, kmax, btol)
+function [c, cs] = moments_lan_dos(varargin)
 
-  if isa(A, 'function_handle')
-    % Fill in defaults
-    Afun = A;
-    if nargin < 6, btol = 1e-6;  end
-    if nargin < 5, kmax = 100;   end
-    if nargin < 4, N    = 10;    end
-    if nargin < 3, nZ   = 100;   end
-  else
-    % Fill in defaults and shift arguments down
-    Afun = @(X) A*X;
-    if nargin < 5, btol = 1e-6; else btol = kmax; end
-    if nargin < 4, kmax = 100;  else kmax = N;    end
-    if nargin < 3, N    = 10;   else N    = nZ;   end
-    if nargin < 2, nZ   = 100;  else nZ   = n;    end
-    n = size(A,1);
-  end
+  defaults = {'Afun', NaN, 'n', NaN, ...
+              'nZ', 100, 'N', 10, 'kmax', 100, 'btol', 1e-6};
+  [Afun, n, nZ, N, kmax, btol] = mfuncify(defaults, varargin{:});
+  if N < 2, N = 2; end
 
   % Set up random probe vectors (we allow them to be passed in, too)
   if length(nZ) > 1

@@ -18,23 +18,12 @@
 %    c: an N-by-n matrix of moments
 %    cs: standard deviation of the moments
 %
-function [c,cs] = moments_cheb_ldos(A, n, nZ, N, kind)
+function [c,cs] = moments_cheb_ldos(varargin)
 
-  if isa(A, 'function_handle')
-    % Fill in defaults
-    Afun = A;
-    if nargin < 5, kind = 1;  end
-    if nargin < 4, N  = 10;   end
-    if nargin < 3, nZ = 100;  end
-    if N < 2,      N = 2;     end
-  else
-    % Fill in defaults and shift arguments down
-    Afun = @(X) A*X;
-    if nargin < 4, kind = 1; else kind = N; end
-    if nargin < 3, N = 10;   else N = nZ;   end
-    if nargin < 2, nZ = 100; else nZ = n;   end
-    n = size(A,1);
-  end
+  defaults = {'Afun', NaN, 'n', NaN, ...
+              'nZ', 100, 'N', 10, 'kind', 1};
+  [Afun, n, nZ, N, kind] = mfuncify(defaults, varargin{:});
+  if N < 2, N = 2; end
 
   % Set up random probe vectors (we allow them to be passed in, too)
   if length(nZ) > 1
