@@ -1,37 +1,40 @@
 % IC = index_inform(A, nZ, N)
-% IC = index_inform(Afun, n, nZ, N)
 %
 % Compute the information centrality by the Chebyshev expansion of 
 % 1/(ab(1)*x_ab(2)) and moments of (L+ee^T/n).
 %
-% Inputs:
-%    A: Matrix or function to apply matrix (to multiple RHS)
-%    n: Dimension of the space (if A is a function)
+%    A: Adjacency matrix
 %    nZ: Number of probe vectors with which we want to compute moments
 %    N: Number of moments to compute
 %
 % Output:
 %    IC: Information centrality
 %
-function IC = index_inform(varargin)
-
-    defaults = {'Afun', NaN, 'n', NaN, ...
-              'nZ', 100, 'N', 10, 'kind', 1};
-    [Afun, n, nZ, N] = mfuncify(defaults, varargin{:});
-    if N < 2, N = 2; end
+function IC = index_inform(A, nZ, N)
+    if nargin<3
+        N = 150;
+    end
     
+    if nargin<2
+        nZ=100;
+    end
+    
+    n = size(A,1);
+   
     % Compute the eigenrange of Laplacian
-    Lfun = mfunc_laplacian(Afun,n);
+    L = matrix_laplacian(A);
     opts = [];
     opts.isreal = 1;
     opts.issym = 1;
-    range = sort(eigs(Lfun, n, 4, 'be', opts));
+    range = sort(eigs(L, 2, 'sm', opts));
+    range(3) = eigs(L, 1, 'lm', opts);
     range(1) = 1;
     range = sort(range);
     range = range([1,end]);
     
     % Linear rescaling of (L+ee^T/n)
-    Bfun = @(x) (bsxfun(@plus,mean(x,1),Lfun(x)));
+    Lfun = @(X) L*X;
+    Bfun = @(X) (bsxfun(@plus,mean(X,1),Lfun(X)));
     [Bfuns,ab] = rescale_mfunc(Bfun,n,range);
     
     % Compute the ldos moments
